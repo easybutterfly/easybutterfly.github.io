@@ -1,121 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>easybutterfly</title>
+  <meta charset="UTF-8">
+  <title>easybutterfly</title>
 
-<style>
-:root {
-  --yellow: #e6c84f;
-  --yellow-soft: #f6efc2;
-  --white: #ffffff;
-}
+  <style>
+    :root {
+      --yellow: #e6c84f;
+      --yellow-soft: #f6efc2;
+      --white: #ffffff;
+    }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
 
-body {
-  overflow: hidden;
-  background: var(--white);
-}
+    body {
+      overflow: hidden;
+      background: var(--white);
+    }
 
-canvas {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-section {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-  position: absolute;
-  left: 0;
-  z-index: 2;
-}
+    section {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+      position: absolute;
+      left: 0;
+      z-index: 2;
+    }
 
-#landing {
-  background: linear-gradient(180deg, var(--white), var(--yellow-soft));
-  flex-direction: column;
-  text-align: center;
-}
+    #landing {
+      background: linear-gradient(180deg, var(--white), var(--yellow-soft));
+      flex-direction: column;
+      text-align: center;
+    }
 
-#landing h1 {
-  font-size: 4rem;
-  color: var(--yellow);
-  letter-spacing: 2px;
-  animation: float 4s ease-in-out infinite;
-}
+    #landing h1 {
+      font-size: 4rem;
+      color: var(--yellow);
+      letter-spacing: 2px;
+      animation: float 4s ease-in-out infinite;
+    }
 
-#landing p {
-  margin-top: 15px;
-  font-size: 1.2rem;
-  color: #555;
-}
+    #landing p {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #555;
+    }
 
-#proceed {
-  margin-top: 40px;
-  padding: 15px 45px;
-  border-radius: 50px;
-  border: none;
-  background: linear-gradient(135deg, var(--yellow), #d6b73f);
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
-}
+    #proceed {
+      margin-top: 40px;
+      padding: 15px 45px;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(135deg, var(--yellow), #d6b73f);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
 
-#proceed:hover {
-  transform: scale(1.08);
-}
+    #proceed:hover {
+      transform: scale(1.08);
+    }
 
-#blank {
-  top: 100vh;
-  background: linear-gradient(180deg, var(--white), var(--yellow-soft));
-  flex-direction: column;
-}
+    #blank {
+      top: 100vh;
+      background: linear-gradient(180deg, var(--white), var(--yellow-soft));
+      flex-direction: column;
+    }
 
-.butterfly {
-  font-size: 4rem;
-  animation: float 4s ease-in-out infinite;
-}
+    .butterfly {
+      font-size: 4rem;
+      animation: float 4s ease-in-out infinite;
+      opacity: 0.4;  /* Makes the butterfly emoji and text semi-transparent */
+      color: rgba(230, 200, 79, 0.4); /* Ensures the butterfly remains visible but light */
+    }
 
-.message {
-  margin-top: 15px;
-  font-size: 1.1rem;
-  color: #777;
-}
+    .message {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #777;
+    }
 
-.glow {
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(230,200,79,0.35), transparent 70%);
-  animation: pulse 5s infinite;
-  z-index: -1;
-}
+    .glow {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(230, 200, 79, 0.35), transparent 70%);
+      animation: pulse 5s infinite;
+      z-index: -1;
+    }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
+    /* Profile Box Styling */
+    #profileBox {
+      display: none;
+      position: absolute;
+      top: 10%;
+      left: 10%;  /* Moves profile box to the top left */
+      transform: translate(0, 0);
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      text-align: center;
+      z-index: 3;
+      transition: opacity 0.3s ease;
+    }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.2); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 0.4; }
-}
-</style>
+    #profileBox img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;  /* Adds space below the profile image */
+    }
+
+    #profileBox h2 {
+      font-size: 1.5rem;
+      color: var(--yellow);
+      margin-bottom: 10px;  /* Space between the image and name */
+    }
+
+    #profileBox p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    #profileBox a {
+      display: inline-block;
+      margin: 5px 0;
+      color: var(--yellow);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #profileBox a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 0.4; }
+    }
+  </style>
 </head>
 
 <body>
@@ -129,7 +179,7 @@ section {
 <section id="landing">
   <h1>easybutterfly</h1>
   <p>making the world a better place</p>
-  <button id="proceed">procced</button>
+  <button id="proceed">proceed</button>
 </section>
 
 <section id="blank">
@@ -138,67 +188,83 @@ section {
   <div class="message">something big is coming</div>
 </section>
 
+<!-- Profile Box -->
+<div id="profileBox">
+  <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.tCCOyTXBKp5yqA425o_XNAHaEK%3Fcb%3Ducfimg2%26pid%3DApi%26ucfimg%3D1&f=1&ipt=ba6168d0f749975672d55aaa8788a32c3e8f5ea722b9d189d74302673437906c&ipo=images" alt="Profile Picture">
+  <h2>Ethan Crumbley</h2>
+  <p>Ethan Crumbley is a terrible human being, he was arrested after shooting up a school in flint michigan here is everything about him</p>
+  <a href="https://www.cnn.com/2023/12/08/us/oxford-shooting-ethan-crumbley-sentencing" target="_blank">Article</a><br>
+  <a href="https://www.youtube.com/watch?v=WdGh8qOKInw" target="_blank">Court View</a><br>
+</div>
+
 <script>
-const proceed = document.getElementById("proceed");
-const landing = document.getElementById("landing");
-const blank = document.getElementById("blank");
-const music = document.getElementById("bgMusic");
+  const proceed = document.getElementById("proceed");
+  const landing = document.getElementById("landing");
+  const blank = document.getElementById("blank");
+  const music = document.getElementById("bgMusic");
+  const profileBox = document.getElementById("profileBox");
 
-proceed.addEventListener("click", () => {
-  landing.style.transform = "translateY(-100vh)";
-  blank.style.transform = "translateY(-100vh)";
+  proceed.addEventListener("click", () => {
+    landing.style.transform = "translateY(-100vh)";
+    blank.style.transform = "translateY(-100vh)";
 
-  music.volume = 0;    
-  music.play();       
+    music.volume = 0;    
+    music.play();       
 
-  let v = 0;
-  const fade = setInterval(() => {
-    v += 0.01;         
-    music.volume = v;
-    if (v >= 0.4) clearInterval(fade); 
-  }, 100);
-});
+    let v = 0;
+    const fade = setInterval(() => {
+      v += 0.01;         
+      music.volume = v;
+      if (v >= 0.4) clearInterval(fade); 
+    }, 100);
 
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-
-let particles = [];
-for (let i = 0; i < 60; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 2.5 + 1,
-    s: Math.random() * 0.6 + 0.2
-  });
-}
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "rgba(230, 200, 79, 0.45)";
-
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fill();
-
-    p.y += p.s;
-    if (p.y > canvas.height) {
-      p.y = -10;
-      p.x = Math.random() * canvas.width;
-    }
+    // Show profile box after transition
+    setTimeout(() => {
+      profileBox.style.display = "block";
+      profileBox.style.opacity = "1";
+    }, 1200);
   });
 
-  requestAnimationFrame(animate);
-}
-animate();
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
 
-window.addEventListener("resize", resize);
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+
+  let particles = [];
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2.5 + 1,
+      s: Math.random() * 0.6 + 0.2
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(230, 200, 79, 0.45)";
+
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      p.y += p.s;
+      if (p.y > canvas.height) {
+        p.y = -10;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.addEventListener("resize", resize);
 </script>
 
 </body>
